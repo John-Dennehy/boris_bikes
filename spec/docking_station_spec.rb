@@ -9,9 +9,20 @@ describe DockingStation do
     #      expect(subject.release_bike).to be_working
     # end
 
-    it 'docks something' do
-        bike = Bike.new
-        expect(subject.dock(bike)).to eq bike
+    describe '#dock' do
+        it 'docks something' do
+            bike = Bike.new
+            expect(subject.dock(bike)).to eq bike
+        end
+
+        it ' raises error if dock already in use' do
+            bike_1 = Bike.new
+            bike_2 = Bike.new
+
+            subject.dock(bike_1)
+
+            expect{subject.dock(bike_2)}.to raise_error("Dock in use")
+        end
     end
 
     describe '#release_bike' do
@@ -25,11 +36,12 @@ describe DockingStation do
 
             # assert
             expect(released_bike).to eq my_bike
-
         end
 
         it ' raise error if no bike docked' do
             expect{subject.release_bike}.to raise_error("No bike available")
         end
     end
+
+
 end

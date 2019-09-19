@@ -30,7 +30,6 @@ describe DockingStation do
 
     describe '#release_bike' do
         it 'release a bike' do
-
             # setup
             my_bike = Bike.new
             subject.dock(my_bike)
@@ -46,6 +45,4 @@ describe DockingStation do
             expect{subject.release_bike}.to raise_error("No bike available")
         end
     end
-
-
 end

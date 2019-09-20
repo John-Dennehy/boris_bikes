@@ -11,11 +11,8 @@ class DockingStation
 
   def release_bike
     raise "No bike available" if empty?
-    if @bikes[-1].working? == true  
-      @bikes.pop
-    else
-      raise "No working bikes available"
-    end
+    return @bikes.pop(next_working_bike)
+    raise "No working bike available"
   end
 
   def dock(bike)
@@ -32,5 +29,15 @@ class DockingStation
 
   def empty?
     @bikes.empty?
+  end
+
+  def next_working_bike
+    @bikes.each do |bike|
+      if bike.working?
+        return @bikes.index(bike)
+      else
+
+      end
+    end
   end
 end

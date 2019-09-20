@@ -62,17 +62,17 @@ describe DockingStation do
           bike = Bike.new
           bike.report_broken
           station.dock(bike)
-          expect {station.release_bike}.to raise_error "No working bikes available"
+          expect {station.release_bike}.to raise_error "No working bike available"
         end
 
-        # it "releases a working bike, when last bike docked was broken" do
-        #     bike1 = Bike.new
-        #     bike2 = Bike.new
-        #     bike2.report_broken
-        #     station = DockingStation.new
-        #     station.dock(bike1)
-        #     station.dock(bike2)
-        #     expect(station.release_bike).to eq bike1
-        # end
+        it "releases a working bike, when last bike docked was broken" do
+            bike1 = Bike.new
+            bike2 = Bike.new
+            bike2.report_broken
+            station = DockingStation.new
+            station.dock(bike1)
+            station.dock(bike2)
+            expect(station.release_bike).to eq bike1
+        end
     end
 end

@@ -11,6 +11,8 @@ class DockingStation
 
   def release_bike
     raise "No bike available" if empty?
+    # if @bikes.pop ==
+
 
     @bikes.pop
   end
@@ -22,11 +24,11 @@ class DockingStation
   end
 
   private
-  
+
   def full?
     @bikes.size >= DEFAULT_CAPACITY
   end
-  
+
   def empty?
     @bikes.empty?
   end

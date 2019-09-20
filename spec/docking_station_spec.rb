@@ -5,27 +5,37 @@ describe DockingStation do
     it { is_expected.to respond_to(:bikes) }
     it { is_expected.to respond_to(:dock).with(1).argument }
 
-    # it 'releases a working bike' do
-    #      expect(subject.release_bike).to be_working
-    # end
+    it 'accepts a value for the capacity' do
+        # setup
+        new_capacity = 10
+        station = DockingStation.new(new_capacity)
+        # executes
+        the_capacity = station.capacity
+        # asserts
+        expect(the_capacity).to eq new_capacity
+    end
+
+    it 'uses default capacity if no argument is passed' do
+        station = DockingStation.new
+        the_capacity = station.capacity
+        expect(the_capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
 
     describe '#dock' do
-        
         it 'docks something' do
             my_bike = Bike.new
             station = DockingStation.new
             station.dock(my_bike)
             expect(station.bikes[-1]).to eq my_bike
         end
-
+ 
         it ' raises error if dock is full' do
             # setup
             station = DockingStation.new
             num = DockingStation::DEFAULT_CAPACITY
             num.times{station.dock(Bike.new)}
             my_bike = Bike.new
-            
-           expect{station.dock(my_bike)}.to raise_error("Dock is full")
+            expect{ station.dock(my_bike) }.to raise_error("Dock is full")
         end
     end
 
@@ -33,17 +43,18 @@ describe DockingStation do
         it 'release a bike' do
             # setup
             my_bike = Bike.new
-            subject.dock(my_bike)
+            station = DockingStation.new
+            station.dock(my_bike)
 
             # execute
-            released_bike = subject.release_bike
+            released_bike = station.release_bike
 
             # assert
             expect(released_bike).to eq my_bike
         end
 
         it 'raise error if no bike docked' do
-            expect{subject.release_bike}.to raise_error("No bike available")
+            expect{ subject.release_bike }.to raise_error("No bike available")
         end
     end
 end
